@@ -42,9 +42,9 @@ ul {
   --hero-gradient-color: rgba(46, 47, 66, 0.7);
   --backdrop-background-color: rgba(46, 47, 66, 0.4);
   /*shadows*/
+  --index-header-shadow: 0px 2px 1px rgba(46, 47, 66, 0.08),
+    0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08);
   --order-service-button-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-  --modal-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14),
-    0px 1px 3px rgba(0, 0, 0, 0.12), 0px 2px 1px rgba(0, 0, 0, 0.2);
   --team-card-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08),
     0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
   --filter-button-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.12),
@@ -52,6 +52,8 @@ ul {
   --portfolio-page-card-shadow: 0px 2px 1px 0px rgba(46, 47, 66, 0.08),
     0px 1px 1px 0px rgba(46, 47, 66, 0.16),
     0px 1px 6px 0px rgba(46, 47, 66, 0.08);
+  --modal-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 1px 3px rgba(0, 0, 0, 0.12), 0px 2px 1px rgba(0, 0, 0, 0.2);
   /*border colors*/
   --modal-button-border-color: rgba(0, 0, 0, 0.1);
   /*font families*/
@@ -165,6 +167,7 @@ body {
 .header {
   background-color: var(--white-color);
   border-bottom: 1px solid var(--accent-color);
+  box-shadow: var(--index-header-shadow);
 }
 
 .header-container {
@@ -196,31 +199,17 @@ body {
 }
 
 .nav-menu {
+  position: relative;
   font-weight: 500;
   color: var(--dark-color);
   transition: color 250ms var(--transition-function);
 }
 
-.nav-menu:hover,
-.address-text:hover,
-.nav-menu:focus,
-.address-text:focus {
-  color: var(--pressed-state-color);
-}
-
-.nav-menu-item {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.header-link:hover::after,
-.header-link:focus::after {
+.nav-menu-active::after {
   display: block;
   position: absolute;
-  bottom: 0;
+  left: 0;
+  bottom: -1px;
   content: '';
   width: 100%;
   height: 4px;
@@ -237,6 +226,12 @@ body {
 
 .address-text {
   transition: color 250ms var(--transition-function);
+}
+
+.nav-menu-active,
+.address-text:hover,
+.address-text:focus {
+  color: var(--pressed-state-color);
 }
 
 /*index.html section 1 styles*/
@@ -330,11 +325,6 @@ body {
   padding: 32px 0;
 }
 
-.team-text {
-  /*useles rule, just autocheck requirement to assign class to <p>*/
-  display: block;
-}
-
 .team-social-list {
   display: flex;
   justify-content: center;
@@ -358,8 +348,8 @@ body {
   transition: background-color 250ms var(--transition-function);
 }
 
-.team-card:hover .team-social-link,
-.team-card:focus .team-social-link {
+.team-social-link:hover,
+.team-social-link:focus {
   background-color: var(--pressed-state-color);
 }
 
@@ -388,8 +378,8 @@ body {
   color: var(--subtle-text-color);
   border: 1px solid var(--subtle-text-color);
   border-radius: 4px;
-  transition: border-color 250ms var(--transition-function);
-  transition: color 250ms var(--transition-function);
+  transition: border-color 250ms var(--transition-function),
+    color 250ms var(--transition-function);
 }
 
 .customers-link:hover,
@@ -431,7 +421,7 @@ body {
   cursor: pointer;
   padding: 12px 24px;
   transition: background-color 250ms var(--transition-function),
-    border 250ms var(--transition-function),
+    border-color 250ms var(--transition-function),
     color 250ms var(--transition-function),
     box-shadow 250ms var(--transition-function);
 }
@@ -439,7 +429,7 @@ body {
 .filter-button:hover,
 .filter-button:focus {
   background-color: var(--pressed-state-color);
-  border: 1px solid transparent;
+  border-color: transparent;
   color: var(--white-color);
   box-shadow: var(--filter-button-shadow);
 }
@@ -483,13 +473,10 @@ body {
   width: 360px;
   height: 300px;
   background-color: var(--primary-brand-color);
-  padding: 40px 32px 0px;
+  color: var(--light-color);
+  padding: 40px 32px;
   transform: translateY(100%);
   transition: transform 250ms var(--transition-function);
-}
-
-.portfolio-page-card-overlay-text {
-  color: var(--light-color);
 }
 
 .portfolio-page-card-content {
@@ -595,6 +582,7 @@ body {
   background-color: var(--modal-background-color);
   box-shadow: var(--modal-shadow);
   border-radius: 4px;
+  transition: transform 250ms var(--transition-function);
 }
 
 .modal-button {
